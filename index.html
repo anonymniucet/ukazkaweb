@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RuzaFloors – Podlahy, Schody, Garáže Praha</title>
+    <meta name="description"
+        content="Profesionální pokládka podlah v Praze. Vinyl, dřevo, epoxid. 10+ let praxe, zaměření zdarma. +420 776 830 821">
+    <meta name="robots" content="index, follow">
+    <script
+        type="application/ld+json">{"@context":"https://schema.org","@type":"LocalBusiness","name":"RuzaFloors","telephone":"+420776830821","email":"info@ruzafloors.cz","address":{"@type":"PostalAddress","addressLocality":"Praha","addressCountry":"CZ"},"url":"https://www.ruzafloors.cz"}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Outfit:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <button class="fab" onclick="openM()"><svg viewBox="0 0 24 24">
+            <path
+                d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6-3V7m6 16l4.553-2.276A1 1 0 0021 19.382V8.618a1 1 0 00-.553-.894L15 5m0 15V5m0 0L9 7" />
+        </svg>Zaměření zdarma</button>
+
+    <!-- MODAL -->
+    <div class="mo" id="mo" onclick="closeOut(event)">
+        <div class="mbox">
+            <div class="mh">
+                <div>
+                    <h2>Zaměření &amp; kalkulace <span>zdarma</span></h2>
+                    <p>Zadej místnosti, vypočítej plochu a pošli nám poptávku.</p>
+                </div><button class="mcl" onclick="closeM()"><svg viewBox="0 0 24 24">
+                        <path d="M18 6L6 18M6 6l12 12" />
+                    </svg></button>
+            </div>
+            <div class="mb">
+                <div class="mclr">
+                    <p>Kalkulace plochy</p><button class="addbtn" onclick="addRow()"><svg viewBox="0 0 24 24">
+                            <path d="M12 5v14M5 12h14" />
+                        </svg>Přidat místnost</button>
+                </div>
+                <table class="rtbl">
+                    <thead>
+                        <tr>
+                            <th>Místnost</th>
+                            <th style="width:82px">Délka (m)</th>
+                            <th style="width:82px">Šířka (m)</th>
+                            <th style="width:74px">Plocha</th>
+                            <th style="width:96px">Typ</th>
+                            <th style="width:32px"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="rb">
+                        <tr>
+                            <td><input type="text" placeholder="Obývák" oninput="rcalc()"></td>
+                            <td><input type="number" placeholder="4.5" min="0" step="0.1" oninput="rcalc()"></td>
+                            <td><input type="number" placeholder="3.8" min="0" step="0.1" oninput="rcalc()"></td>
+                            <td class="rac">—</td>
+                            <td><select oninput="rcalc()">
+                                    <option>Vinyl</option>
+                                    <option>Dřevo</option>
+                                    <option>Laminát</option>
+                                    <option>Epoxid</option>
+                                </select></td>
+                            <td><button class="dr" onclick="delRow(this)"><svg viewBox="0 0 24 24">
+                                        <path d="M18 6L6 18M6 6l12 12" />
+                                    </svg></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="cres">
+                    <div class="cri">
+                        <div class="crl">Celková plocha</div>
+                        <div class="crv" id="ca">0 m²</div>
+                        <div class="crs">součet</div>
+                    </div>
+                    <div class="cri">
+                        <div class="crl">S rezervou 10%</div>
+                        <div class="crv" id="ra">0 m²</div>
+                        <div class="crs">doporučeno</div>
+                    </div>
+                    <div class="cri">
+                        <div class="crl">Místností</div>
+                        <div class="crv" id="rc">1</div>
+                        <div class="crs">v kalkulaci</div>
+                    </div>
+                </div>
+                <div class="mdiv"></div>
+                <div class="mfg">
+                    <div class="fg"><label>Jméno</label><input type="text" placeholder="Vaše jméno"></div>
+                    <div class="fg"><label>Telefon</label><input type="tel" placeholder="+420 ..."></div>
+                    <div class="fg"><label>E-mail</label><input type="email" placeholder="vas@email.cz"></div>
+                    <div class="fg"><label>Termín</label><input type="text" placeholder="říjen 2025"></div>
+                    <div class="fg full"><label>Poznámka</label><textarea
+                            placeholder="Lokalita v Praze, popis projektu..."></textarea></div>
+                </div>
+                <button class="msub" onclick="subM(this)">Odeslat poptávku &amp; zamluvit zaměření →</button>
+                <p class="mnote">Nezávazné · Zdarma · Do 24 hodin</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAV -->
+    <nav id="nav">
+        <a class="logo" onclick="scrollTo(0,0)"><img
+                src="https://www.ruzafloors.cz/wp-content/uploads/2023/12/logo_white_outline200xx60.png"
+                alt="RuzaFloors" height="36"></a>
+        <ul class="nl">
+            <li><a onclick="sc('podlahy')">Podlahy</a></li>
+            <li><a onclick="sc('schody')">Schody</a></li>
+            <li><a onclick="sc('galerie')">Galerie</a></li>
+            <li><a onclick="sc('tym')">Tým</a></li>
+            <li><a onclick="sc('proc-my')">Proč my</a></li>
+            <li><a onclick="sc('kontakt')">Kontakt</a></li>
+            <li><a onclick="openM();return false" class="ncta">Zaměření zdarma</a></li>
+        </ul>
+        <button class="hbg" id="hbg" onclick="toggleNav()"><span></span><span></span><span></span></button>
+    </nav>
+    <div class="npanel" id="npanel">
+        <ul>
+            <li><a onclick="sc('podlahy');closeNav()">Podlahy</a></li>
+            <li><a onclick="sc('schody');closeNav()">Schody</a></li>
+            <li><a onclick="sc('garage');closeNav()">Garáže</a></li>
+            <li><a onclick="sc('galerie');closeNav()">Galerie</a></li>
+            <li><a onclick="sc('tym');closeNav()">Tým</a></li>
+            <li><a onclick="sc('proc-my');closeNav()">Proč my</a></li>
+            <li><a onclick="sc('kontakt');closeNav()">Kontakt</a></li>
+        </ul>
+        <a class="npanel-cta" onclick="openM();closeNav()">Zaměření zdarma →</a>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero" id="top">
+        <div class="hbgi"></div>
+        <div class="hov"></div>
+        <div class="hc">
+            <div class="heye">Praha &amp; okolí · 10+ let v oboru</div>
+            <h1>Podlaha, která<br>nezklame. <em>Tým,</em><br><em>který dodrží slovo.</em></h1>
+            <p class="hsub">Nejsme největší firma v Česku. Jsme ta pražská, na kterou se lidi ptají sousedů. Vinyl,
+                dřevo, schody nebo garáž — poctivá práce, jasná cena.</p>
+            <div class="hbtns">
+                <button class="btnr" onclick="openM()"><svg viewBox="0 0 24 24">
+                        <path
+                            d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6-3V7m6 16l4.553-2.276A1 1 0 0021 19.382V8.618a1 1 0 00-.553-.894L15 5m0 15V5m0 0L9 7" />
+                    </svg>Zaměření zdarma</button>
+                <button class="btngw" onclick="sc('podlahy')">Naše práce →</button>
+            </div>
+        </div>
+        <div class="hbadges">
+            <div class="hbadge">
+                <div class="hbadge-i"><svg viewBox="0 0 24 24">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    </svg></div>
+                <div class="hbadge-t"><strong>Záruka kvality</strong><span>Na materiál i práci</span></div>
+            </div>
+            <div class="hbadge">
+                <div class="hbadge-i"><svg viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" />
+                        <polyline points="12 6 12 12 16 14" />
+                    </svg></div>
+                <div class="hbadge-t"><strong>Dodržujeme termíny</strong><span>Bez výmluv</span></div>
+            </div>
+            <div class="hbadge">
+                <div class="hbadge-i"><svg viewBox="0 0 24 24">
+                        <path
+                            d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6-3V7m6 16l4.553-2.276A1 1 0 0021 19.382V8.618a1 1 0 00-.553-.894L15 5m0 15V5m0 0L9 7" />
+                    </svg></div>
+                <div class="hbadge-t"><strong>Zaměření zdarma</strong><span>Přijedeme k vám</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PODLAHY -->
+    <section id="podlahy">
+        <div class="bsplit rv">
+            <div class="bsi"><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=85"
+                    alt="Podlahy Praha" loading="lazy"><span class="bsb">Podlahy</span></div>
+            <div class="bst">
+                <div class="sl">Podlahy</div>
+                <h2 class="sh">Vinyl, dřevo<br><em>&amp; laminát</em></h2>
+                <p class="sp">Pokládáme všechny typy podlah — od vinylových click systémů přes lepené dřevo až po
+                    laminát. Zaměříme, doporučíme a postaráme se o precizní výsledek.</p>
+                <ul class="bscl">
+                    <li><span class="bscd"><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg></span>Vinylové podlahy lepené i plovoucí (click)</li>
+                    <li><span class="bscd"><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg></span>Dřevěné parkety a prkna — lakované i olejované</li>
+                    <li><span class="bscd"><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg></span>Příprava a vyrovnání podkladu (nivelační stěrka)</li>
+                    <li><span class="bscd"><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg></span>Vhodné na podlahové topení — poradíme s výběrem</li>
+                </ul>
+                <div class="bsbtns"><a href="podlahy.html" class="btni">O podlahách podrobněji<svg viewBox="0 0 24 24">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg></a><button class="btnor" onclick="sc('kontakt')">Napsat poptávku</button></div>
+            </div>
+        </div>
+    </section>
+    <div class="svcsep"></div>
+
+    <!-- SCHODY -->
+    <section id="schody">
+        <div class="bsplit flip rv">
+            <div class="bsi"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=85"
+                    alt="Schody Praha" loading="lazy"><span class="bsb">Schody</span></div>
+            <div class="bst">
+                <div class="sl">Schody</div>
+                <h2 class="sh">Vinylové schody<br><em>na míru</em></h2>
+                <p class="sp">Výroba a montáž schodů přesně ve stejném dekoru jako podlaha. Bez přechodových lišt —
+                    čistý, jednotný výsledek bez kovových hran.</p>
+                <ul class="bscl">
+                    <li><span class="bscd"><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg></span>Výroba na míru — dekor shodný s podlahou</li>
+                    <li><span class="bscd"><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg></span>Schody s nosem nebo bez nosu dle přání</li>
+                    <li><span class="bscd"><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg></span>Boční krytí a soklové lišty na zakázku</li>
+                    <li><span class="bscd"><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg></span>Bez kovových lišt — elegantní a bezpečný výsledek</li>
+                </ul>
+                <div class="bsbtns"><a href="schody.html" class="btni">O schodech podrobněji<svg viewBox="0 0 24 24">
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg></a><button class="btnor" onclick="sc('kontakt')">Napsat poptávku</button></div>
+            </div>
+        </div>
+    </section>
+    <div class="svcsep"></div>
+
+    <!-- GARÁŽE -->
+    <section id="garage">
+        <div class="giinner rv">
+            <div class="giimg"><img src="https://images.unsplash.com/photo-1632205000671-72ccc03e4561?w=1200&q=85"
+                    alt="Garáž epoxid Praha" loading="lazy"></div>
+            <div class="gitxt">
+                <div class="sl">Garážová stání</div>
+                <h2 class="sh">Epoxidové<br><em>stěrky</em></h2>
+                <p class="sp">Průmyslově odolné epoxidové stěrky pro garáže, sklady a komerční prostory. Odolné
+                    chemikáliím i vlhkosti — profesionální výsledek na roky.</p>
+                <ul class="giperks">
+                    <li>Odolné oleji, benzínu a chemikáliím</li>
+                    <li>Snadné čištění a údržba</li>
+                    <li>Různé barevné varianty a povrchy</li>
+                    <li>Vhodné pro garáže, sklady i dílny</li>
+                </ul>
+                <button class="btnr" onclick="sc('kontakt')">Poptat epoxidovou stěrku →</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERY WITH FILTERS + BEFORE/AFTER -->
+    <section id="galerie">
+        <div class="ghead rv">
+            <div>
+                <div class="sl">Fotogalerie</div>
+                <h2 class="sh">Naše <em>realizace</em></h2>
+            </div><a href="https://instagram.com/ruzafloors" target="_blank" class="iglink">Více na Instagramu →</a>
+        </div>
+        <div class="gtabs rv">
+            <button class="gtab active" onclick="gTab('vse',this)">Vše</button>
+            <button class="gtab" onclick="gTab('podlahy',this)">Podlahy</button>
+            <button class="gtab" onclick="gTab('schody',this)">Schody</button>
+            <button class="gtab" onclick="gTab('pred-po',this)">Před &amp; Po</button>
+        </div>
+        <div class="gsec active" id="g-vse">
+            <div class="ggrid rv">
+                <div class="gi"><img src="https://images.unsplash.com/photo-1618221118493-9cfa1a1c00da?w=1000&q=85"
+                        alt="" loading="lazy">
+                    <div class="giov"><span>Vinyl · Praha 6</span></div>
+                </div>
+                <div class="gi"><img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80" alt=""
+                        loading="lazy">
+                    <div class="giov"><span>Dřevo · Praha 2</span></div>
+                </div>
+                <div class="gi"><img src="https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=600&q=80"
+                        alt="" loading="lazy">
+                    <div class="giov"><span>Schody · Praha 4</span></div>
+                </div>
+                <div class="gi"><img src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=700&q=80"
+                        alt="" loading="lazy">
+                    <div class="giov"><span>Vinyl · Praha 5</span></div>
+                </div>
+                <div class="gi"><img src="https://images.unsplash.com/photo-1605774337664-7a846e9cdf60?w=600&q=80"
+                        alt="" loading="lazy">
+                    <div class="giov"><span>Dřevo olejované · Praha 1</span></div>
+                </div>
+                <div class="gi"><img src="https://images.unsplash.com/photo-1586105251261-72a756497a11?w=600&q=80"
+                        alt="" loading="lazy">
+                    <div class="giov"><span>Laminát · Praha 9</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="gsec" id="g-podlahy">
+            <div class="ggrid rv">
+                <div class="gi"><img src="https://images.unsplash.com/photo-1618221118493-9cfa1a1c00da?w=1000&q=85"
+                        alt="" loading="lazy">
+                    <div class="giov"><span>Vinyl click · Praha 6</span></div>
+                </div>
+                <div class="gi"><img src="https://images.unsplash.com/photo-1605774337664-7a846e9cdf60?w=600&q=80"
+                        alt="" loading="lazy">
+                    <div class="giov"><span>Dřevo olejované · Praha 1</span></div>
+                </div>
+                <div class="gi"><img src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=700&q=80"
+                        alt="" loading="lazy">
+                    <div class="giov"><span>Vinyl plovoucí · Praha 5</span></div>
+                </div>
+                <div class="gi"><img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=600&q=80" alt=""
+                        loading="lazy">
+                    <div class="giov"><span>Dřevěná prkna · Praha 2</span></div>
+                </div>
+                <div class="gi"><img src="https://images.unsplash.com/photo-1586105251261-72a756497a11?w=600&q=80"
+                        alt="" loading="lazy">
+                    <div class="giov"><span>Laminát AC5 · Praha 9</span></div>
+                </div>
+                <div class="gi"><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80"
+                        alt="" loading="lazy">
+                    <div class="giov"><span>Vinyl lepený · Praha 3</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="gsec" id="g-schody">
+            <div class="ggrid rv" style="grid-template-columns:repeat(3,1fr);grid-template-rows:280px 280px">
+                <div class="gi" style="grid-column:span 2"><img
+                        src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1000&q=85" alt=""
+                        loading="lazy">
+                    <div class="giov"><span>Schody bez lišt · Praha 4</span></div>
+                </div>
+                <div class="gi"><img src="https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=600&q=80"
+                        alt="" loading="lazy">
+                    <div class="giov"><span>Schody s nosem · Praha 7</span></div>
+                </div>
+                <div class="gi"><img src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=600&q=80"
+                        alt="" loading="lazy">
+                    <div class="giov"><span>Schody + podlaha · Praha 3</span></div>
+                </div>
+                <div class="gi" style="grid-column:span 2"><img
+                        src="https://images.unsplash.com/photo-1605774337664-7a846e9cdf60?w=900&q=80" alt=""
+                        loading="lazy">
+                    <div class="giov"><span>Dřevěné schodiště · Praha 8</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="gsec" id="g-pred-po">
+            <p style="font-size:.82rem;color:var(--st);margin-bottom:20px">← Potáhni slider pro porovnání před a po
+                rekonstrukci</p>
+            <div class="bagrid rv">
+                <div class="bacard">
+                    <div class="bacardinner" id="ba1">
+                        <div class="babefore"><img
+                                src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?w=600&q=80" alt="Před"
+                                loading="lazy"></div>
+                        <div class="baafter" id="ba1a"><img
+                                src="https://images.unsplash.com/photo-1618221118493-9cfa1a1c00da?w=600&q=85" alt="Po"
+                                loading="lazy"></div>
+                        <div class="bahandle" id="ba1h"></div>
+                        <div class="bapilb">Před</div>
+                        <div class="bapila">Po</div>
+                    </div>
+                    <div class="bacardtxt">
+                        <h4>Obývací pokoj · Praha 6</h4>
+                        <p>Starý koberec → Vinyl click</p>
+                    </div>
+                </div>
+                <div class="bacard">
+                    <div class="bacardinner" id="ba2">
+                        <div class="babefore"><img
+                                src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600&q=80" alt="Před"
+                                loading="lazy"></div>
+                        <div class="baafter" id="ba2a"><img
+                                src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=85" alt="Po"
+                                loading="lazy"></div>
+                        <div class="bahandle" id="ba2h"></div>
+                        <div class="bapilb">Před</div>
+                        <div class="bapila">Po</div>
+                    </div>
+                    <div class="bacardtxt">
+                        <h4>Schodiště · Praha 4</h4>
+                        <p>Staré dlaždice → Vinylové schody</p>
+                    </div>
+                </div>
+                <div class="bacard">
+                    <div class="bacardinner" id="ba3">
+                        <div class="babefore"><img
+                                src="https://images.unsplash.com/photo-1575517111839-3a3843ee7f5d?w=600&q=80" alt="Před"
+                                loading="lazy"></div>
+                        <div class="baafter" id="ba3a"><img
+                                src="https://images.unsplash.com/photo-1605774337664-7a846e9cdf60?w=600&q=85" alt="Po"
+                                loading="lazy"></div>
+                        <div class="bahandle" id="ba3h"></div>
+                        <div class="bapilb">Před</div>
+                        <div class="bapila">Po</div>
+                    </div>
+                    <div class="bacardtxt">
+                        <h4>Chodba &amp; kuchyně · Praha 2</h4>
+                        <p>Starý laminát → Dřevěná olejovaná prkna</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AR FLOOR PREVIEW -->
+    <section id="ar">
+        <div class="arlayout rv">
+            <div class="artxt">
+                <div class="sl">Virtuální náhled</div>
+                <h2 class="sh" style="color:#fff">Jak bude podlaha<br><em>vypadat u vás?</em></h2>
+                <p class="sp">Vyzkoušej různé dekory v reálném prostoru ještě před objednávkou. Klikni na vzorek a
+                    uvidíš ho v místnosti.</p>
+                <p class="arnote" style="margin-bottom:14px">Klikni na vzorek:</p>
+                <div class="arswatches">
+                    <div class="arsw active" data-color="#C8A87A" data-name="Dub přírodní" onclick="setFloor(this)"
+                        title="Dub přírodní" style="background:linear-gradient(135deg,#C8A87A,#B8986A)"></div>
+                    <div class="arsw" data-color="#5C4033" data-name="Tmavý ořech" onclick="setFloor(this)"
+                        title="Tmavý ořech" style="background:linear-gradient(135deg,#5C4033,#4A3028)"></div>
+                    <div class="arsw" data-color="#D8D0C4" data-name="Světlý beton" onclick="setFloor(this)"
+                        title="Světlý beton" style="background:linear-gradient(135deg,#D8D0C4,#C8C0B4)"></div>
+                    <div class="arsw" data-color="#6B5B47" data-name="Rustik dub" onclick="setFloor(this)"
+                        title="Rustik dub" style="background:linear-gradient(135deg,#6B5B47,#5B4B37)"></div>
+                    <div class="arsw" data-color="#E8E0D0" data-name="Bílý jasan" onclick="setFloor(this)"
+                        title="Bílý jasan" style="background:linear-gradient(135deg,#E8E0D0,#D8D0C0)"></div>
+                    <div class="arsw" data-color="#3A3530" data-name="Antracit" onclick="setFloor(this)"
+                        title="Antracit" style="background:linear-gradient(135deg,#3A3530,#2A2520)"></div>
+                </div>
+                <p class="arnote" id="arname" style="color:rgba(255,255,255,.6);font-size:.83rem;margin-bottom:22px">Dub
+                    přírodní — klikni na vzorek pro změnu</p>
+                <button class="btnr" onclick="openM()">Chci tuto podlahu doma →</button>
+            </div>
+            <div class="arcanvas rv d1">
+                <img class="arroom" src="https://images.unsplash.com/photo-1618221118493-9cfa1a1c00da?w=900&q=85"
+                    alt="Náhled podlahy v místnosti">
+                <div class="arovl" id="arovl" style="background:#C8A87A"></div>
+                <div class="arlbl" id="arlbl">Dub přírodní</div>
+                <div class="arbadge">Virtuální náhled</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STYLE QUIZ (před kontaktem) -->
+    <section id="quiz">
+        <div class="qwrap">
+            <div class="qhead rv">
+                <div class="sl" style="justify-content:center">Rychlý průvodce</div>
+                <h2 class="sh">Vyber si styl podlahy<br><em>během 10 sekund</em></h2>
+                <p class="sp">Klikni na styl, který tě osloví — poradíme ti, která podlaha je pro tebe ideální a hned tě
+                    propojíme s týmem.</p>
+            </div>
+            <div class="qcards rv">
+                <div class="qcard" data-style="moderni" onclick="selectStyle(this)">
+                    <div class="qcimg"><img
+                            src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&q=80" alt="Moderní"
+                            loading="lazy">
+                        <div class="qcheck"><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg></div>
+                    </div>
+                    <div class="qcbody">
+                        <h4>Moderní</h4>
+                        <p>Čisté linie, světlé tóny, minimalistický prostor. Podlaha splývá s interiérem.</p>
+                        <div class="qctags"><span class="qctag">Vinyl</span><span class="qctag">Click</span><span
+                                class="qctag">Světlé dekory</span></div>
+                    </div>
+                </div>
+                <div class="qcard" data-style="rustikal" onclick="selectStyle(this)">
+                    <div class="qcimg"><img
+                            src="https://images.unsplash.com/photo-1605774337664-7a846e9cdf60?w=600&q=80"
+                            alt="Rustikální" loading="lazy">
+                        <div class="qcheck"><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg></div>
+                    </div>
+                    <div class="qcbody">
+                        <h4>Rustikální</h4>
+                        <p>Teplo dřeva, výrazná kresba letokruhů, přírodní charakter. Útulný domov.</p>
+                        <div class="qctags"><span class="qctag">Dřevo</span><span class="qctag">Olej</span><span
+                                class="qctag">Tmavé tóny</span></div>
+                    </div>
+                </div>
+                <div class="qcard" data-style="minimalista" onclick="selectStyle(this)">
+                    <div class="qcimg"><img
+                            src="https://images.unsplash.com/photo-1618221118493-9cfa1a1c00da?w=600&q=80"
+                            alt="Minimalistický" loading="lazy">
+                        <div class="qcheck"><svg viewBox="0 0 24 24">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg></div>
+                    </div>
+                    <div class="qcbody">
+                        <h4>Minimalistický</h4>
+                        <p>Nic navíc. Homogenní povrch, potlačená kresba, neutrální paleta.</p>
+                        <div class="qctags"><span class="qctag">Lepený vinyl</span><span
+                                class="qctag">Béžová</span><span class="qctag">Šedá</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="qresult" id="qresult">
+                <div class="qrtag" id="qtag">—</div>
+                <h3 id="qtitle">Tohle je ideální řešení pro vás</h3>
+                <p id="qdesc">Vyberte styl výše.</p>
+                <button class="btnr" onclick="sc('kontakt')" style="margin:0 auto;display:inline-flex">Chci tuto podlahu
+                    → kontaktujte nás</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- URGENCY -->
+    <div class="uband rv">
+        <div class="ubl">
+            <div class="ubdot"></div>
+            <div class="ubt">
+                <p>Sezóna 2025 — kapacita se plní</p><strong>Plánuješ rekonstrukci? Zarezeruj termín co
+                    nejdřív.</strong>
+            </div>
+        </div>
+        <div class="ubr">
+            <div class="ubnote"><strong>Do 24 hodin odpovídáme</strong>Zaměření na místě zdarma</div><button
+                class="btnr" onclick="sc('kontakt')">Napsat poptávku →</button>
+        </div>
+    </div>
+
+    <!-- VIDEOS -->
+    <section id="videa">
+        <div class="vhead rv">
+            <div class="sl" style="justify-content:center">Video</div>
+            <h2 class="sh">Podívej se <em>jak pracujeme</em></h2>
+            <p class="sp">Celý postup od zaměření přes pokládku až po finální výsledek.</p>
+        </div>
+        <div class="vgrid">
+            <div class="vcard rv">
+                <div class="vthumb" onclick="window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ','_blank')"><img
+                        src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=700&q=85" alt=""
+                        loading="lazy">
+                    <div class="pwrap">
+                        <div class="pcircle"><svg viewBox="0 0 24 24">
+                                <polygon points="5,3 19,12 5,21" />
+                            </svg></div>
+                    </div>
+                    <div class="vdur">4:32</div>
+                </div>
+                <div class="vcbody">
+                    <div class="vctag">Vinyl</div>
+                    <h4>Pokládka vinylové podlahy — kompletní postup</h4>
+                    <p>Od přípravy podkladu přes pokládku až po lišty.</p>
+                </div>
+            </div>
+            <div class="vcard rv d1">
+                <div class="vthumb" onclick="window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ','_blank')"><img
+                        src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=85" alt=""
+                        loading="lazy">
+                    <div class="pwrap">
+                        <div class="pcircle"><svg viewBox="0 0 24 24">
+                                <polygon points="5,3 19,12 5,21" />
+                            </svg></div>
+                    </div>
+                    <div class="vdur">6:14</div>
+                </div>
+                <div class="vcbody">
+                    <div class="vctag">Schody</div>
+                    <h4>Montáž vinylových schodů bez lišt</h4>
+                    <p>Výroba schodnic na míru a montáž bez kovových hran.</p>
+                </div>
+            </div>
+            <div class="vcard rv d2">
+                <div class="vthumb" onclick="window.open('https://www.youtube.com/watch?v=dQw4w9WgXcQ','_blank')"><img
+                        src="https://images.unsplash.com/photo-1632205000671-72ccc03e4561?w=700&q=85" alt=""
+                        loading="lazy">
+                    <div class="pwrap">
+                        <div class="pcircle"><svg viewBox="0 0 24 24">
+                                <polygon points="5,3 19,12 5,21" />
+                            </svg></div>
+                    </div>
+                    <div class="vdur">3:55</div>
+                </div>
+                <div class="vcbody">
+                    <div class="vctag">Garáže</div>
+                    <h4>Epoxidová stěrka — od broušení po finální povrch</h4>
+                    <p>Příprava a aplikace epoxidové stěrky.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TÝM -->
+    <section id="tym">
+        <div style="text-align:center;margin-bottom:52px" class="rv">
+            <div class="sl" style="justify-content:center">Náš tým</div>
+            <h2 class="sh">Lidé za <em>každou podlahou</em></h2>
+            <p class="sp" style="max-width:500px;margin:0 auto">Nejsme anonymní firma. Víte, kdo u vás pracuje — a proč
+                to dělá.</p>
+        </div>
+        <div class="teamgrid">
+            <div class="rv">
+                <div class="sl">Příběh majitele</div>
+                <h2 class="sh" style="margin-bottom:22px">Za každou podlahou<br><em>stojí člověk</em></h2>
+                <div class="ownercard">
+                    <div class="ownerphoto"><svg viewBox="0 0 24 24">
+                            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                            <circle cx="12" cy="7" r="4" />
+                        </svg></div>
+                    <div class="ownerbio">
+                        <div class="ownertop">
+                            <div class="ownerav"><svg viewBox="0 0 24 24">
+                                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+                                    <circle cx="12" cy="7" r="4" />
+                                </svg></div>
+                            <div class="ownernm"><strong>Jan Růža</strong><span>Majitel · RuzaFloors</span></div>
+                        </div>
+                        <p class="ownerstory">„Do oboru jsem se dostal náhodou — jako mladý jsem pomáhal sousedovi s
+                            parkety a <strong>okamžitě mě pohltil ten pocit</strong>, když se na konci dne otočíte a
+                            vidíte krásnou novou podlahu tam, kde ráno byl chaos.<br><br>Dnes děláme podlahy přes
+                            <strong>10 let</strong> a pořád mám ten samý pocit. Každý projekt beru osobně. Když zákazník
+                            zavolá a řekne — <em>vypadá to nádherně</em> — to je pro mě víc než jakákoliv
+                            odměna.<br><br><strong>Dělám to pořádně, nebo vůbec.</strong> Jinak to neumím."</p>
+                    </div>
+                </div>
+            </div>
+            <div class="rv d1">
+                <div class="sl">Celý tým</div>
+                <h2 class="sh" style="margin-bottom:22px">Zkušení lidi,<br><em>dobrá parta</em></h2>
+                <div class="teamphoto"><svg viewBox="0 0 24 24">
+                        <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                        <circle cx="9" cy="7" r="4" />
+                        <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
+                    </svg></div>
+                <div class="teamvals">
+                    <div class="tv">
+                        <div class="tvi"><svg viewBox="0 0 24 24">
+                                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                            </svg></div>
+                        <div class="tvt">
+                            <h5>Zkušený tým</h5>
+                            <p>Každý člen prošel desítkami realizací a zná řemeslo do detailu.</p>
+                        </div>
+                    </div>
+                    <div class="tv">
+                        <div class="tvi"><svg viewBox="0 0 24 24">
+                                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg></div>
+                        <div class="tvt">
+                            <h5>Precizní práce</h5>
+                            <p>Každá spára, každá lišta — dáváme pozornost každému detailu.</p>
+                        </div>
+                    </div>
+                    <div class="tv">
+                        <div class="tvi"><svg viewBox="0 0 24 24">
+                                <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                                <circle cx="9" cy="7" r="4" />
+                                <path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75" />
+                            </svg></div>
+                        <div class="tvt">
+                            <h5>Lidský přístup</h5>
+                            <p>Nejsme anonymní firma. Vždy víte, kdo u vás pracuje a proč.</p>
+                        </div>
+                    </div>
+                    <div class="tv">
+                        <div class="tvi"><svg viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10" />
+                                <polyline points="12 6 12 12 16 14" />
+                            </svg></div>
+                        <div class="tvt">
+                            <h5>Respekt k vašemu času</h5>
+                            <p>Přijdeme včas, pracujeme bez zbytečného zdržování.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROČ MY -->
+    <section id="proc-my">
+        <div class="whylayout">
+            <div class="rv">
+                <div class="sl">Proč nás</div>
+                <h2 class="sh">Proč si<br>vybrat <em>nás</em></h2>
+                <p class="sp">Naším cílem není prodat — chceme dodat řešení, které funguje a vydrží. Proto si nás
+                    zákazníci doporučují dál.</p>
+                <div class="whypq">
+                    <p>"Dělám to pořádně, nebo vůbec. Levný kompromis na podlaze poznáte do roka."</p><cite>— Jan Růža,
+                        majitel RuzaFloors</cite>
+                </div>
+                <div class="whynums">
+                    <div class="wni"><strong>10+</strong>
+                        <p>let praxe</p>
+                    </div>
+                    <div class="wni"><strong>500+</strong>
+                        <p>realizací</p>
+                    </div>
+                    <div class="wni"><strong>100%</strong>
+                        <p>spokojenost</p>
+                    </div>
+                    <div class="wni"><strong>5★</strong>
+                        <p>hodnocení</p>
+                    </div>
+                </div>
+            </div>
+            <div class="whylist rv d1">
+                <div class="wi">
+                    <div class="winum">01</div>
+                    <div>
+                        <h4>10+ let zkušeností v oboru</h4>
+                        <p>Stovky realizací po celé Praze. Víme, na co si dát pozor — ne z katalogu, ale z praxe na
+                            stavbě.</p>
+                    </div>
+                </div>
+                <div class="wi">
+                    <div class="winum">02</div>
+                    <div>
+                        <h4>Záruka na materiál i práci</h4>
+                        <p>Za svou prací si stojíme. Jsme tu i po předání — pokud se cokoliv stane, vyřešíme to bez
+                            výmluv.</p>
+                    </div>
+                </div>
+                <div class="wi">
+                    <div class="winum">03</div>
+                    <div>
+                        <h4>Termíny jsou závazky, ne odhady</h4>
+                        <p>Domluvený datum dodržíme. Chápeme, co rekonstrukce znamená pro rodinu.</p>
+                    </div>
+                </div>
+                <div class="wi">
+                    <div class="winum">04</div>
+                    <div>
+                        <h4>Cena je cena — bez překvapení</h4>
+                        <p>Férová cena domluvená předem. Žádné skryté poplatky, žádné vícenáklady v průběhu.</p>
+                    </div>
+                </div>
+                <div class="wi">
+                    <div class="winum">05</div>
+                    <div>
+                        <h4>Ochotný tým bez zbytečností</h4>
+                        <p>Poradíme, ukážeme vzorky, vysvětlíme rozdíly — bez prodejního tlaku.</p>
+                    </div>
+                </div>
+                <div class="wi" style="border-bottom:none">
+                    <div class="winum">06</div>
+                    <div>
+                        <h4>Zaměření a kalkulace zdarma</h4>
+                        <p>Přijedeme, zaměříme, poradíme a dáme reálnou nabídku. Bez poplatku, bez závazku.</p>
+                    </div>
+                </div>
+                <div class="whycta">
+                    <p>Máš projekt? <strong>Termíny se plní.</strong></p><a href="tel:+420776830821" class="btnr"><svg
+                            viewBox="0 0 24 24">
+                            <path
+                                d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
+                        </svg>Zavolat hned</a><button class="btnor" onclick="sc('kontakt')">Napsat zprávu</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RECENZE -->
+    <section id="reviews">
+        <div class="revhead rv">
+            <div class="sl" style="justify-content:center">Reference</div>
+            <h2 class="sh">Co říkají <em>zákazníci</em></h2>
+            <div class="revratrow">
+                <div class="revstars-big"><svg viewBox="0 0 24 24">
+                        <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg><svg viewBox="0 0 24 24">
+                        <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg><svg viewBox="0 0 24 24">
+                        <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg><svg viewBox="0 0 24 24">
+                        <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg><svg viewBox="0 0 24 24">
+                        <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg></div><span class="revratnum">5.0</span><span class="revratcnt">· průměrné hodnocení</span>
+            </div>
+        </div>
+        <div class="revgrid">
+            <div class="revcard rv">
+                <div class="revstars"><svg viewBox="0 0 24 24">
+                        <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg><svg viewBox="0 0 24 24">
+                        <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg><svg viewBox="0 0 24 24">
+                        <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg><svg viewBox="0 0 24 24">
+                        <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg><svg viewBox="0 0 24 24">
+                        <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg></div>
+                <p class="revq">Vinyl v celém bytě včetně schodiště. Přijeli zaměřit druhý den, cena odpovídala nabídce
+                    a práce hotová dřív, než jsme čekali.</p>
+                <div class="revauthor">
+                    <div class="revav">M</div>
+                    <div class="revinfo"><strong>Michal K.</strong><span>Praha 6 · Vinyl + schody</span></div>
+                </div>
+            </div>
+            <div class="revcard rv d1">
+                <div class="revstars"><svg viewBox="0 0 24 24">
+                        <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg><svg viewBox="0 0 24 24">
+                        <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg><svg viewBox="0 0 24 24">
+                        <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg><svg viewBox="0 0 24 24">
+                        <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg><svg viewBox="0 0 24 24">
+                        <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg></div>
+                <p class="revq">Dřevěná podlaha na podlahové topení — poradili mi správný materiál a výsledek je
+                    nádherný. Přístup od začátku profesionální a ochotný.</p>
+                <div class="revauthor">
+                    <div class="revav">L</div>
+                    <div class="revinfo"><strong>Lucie H.</strong><span>Praha 2 · Dřevěná podlaha</span></div>
+                </div>
+            </div>
+            <div class="revcard rv d2">
+                <div class="revstars"><svg viewBox="0 0 24 24">
+                        <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg><svg viewBox="0 0 24 24">
+                        <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg><svg viewBox="0 0 24 24">
+                        <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg><svg viewBox="0 0 24 24">
+                        <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg><svg viewBox="0 0 24 24">
+                        <polygon
+                            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                    </svg></div>
+                <p class="revq">Garáž epoxidovou stěrkou — nabídka do hodiny, nástup přesně jak domluveno. Výsledek
+                    lepší než jsem si představoval.</p>
+                <div class="revauthor">
+                    <div class="revav">T</div>
+                    <div class="revinfo"><strong>Tomáš V.</strong><span>Praha 9 · Epoxidová stěrka</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JAK TO FUNGUJE — PREMIUM -->
+    <section id="hiw">
+        <div class="hiwinner">
+            <div class="hiwhead rv">
+                <div class="sl">Jak to funguje</div>
+                <h2 class="sh">Od prvního kontaktu<br><em>po hotovou podlahu</em></h2>
+                <p class="sp">Čtyři kroky. Žádné výmluvy, žádná překvapení — jen jasný postup a domluvená cena.</p>
+            </div>
+            <div class="hiwtrack rv">
+                <div class="hiwsteps">
+                    <div class="hiwstep">
+                        <div class="hiwtop">
+                            <div class="hiwcircle">1</div>
+                        </div>
+                        <div class="hiwstep-body">
+                            <h4>Ozvete se nám</h4>
+                            <p>Zavolejte nebo napište — odpovídáme do 24 hodin a domluvíme termín zaměření.</p>
+                            <span class="hiw-dur">Do 24 hod.</span>
+                        </div>
+                    </div>
+                    <div class="hiwstep">
+                        <div class="hiwtop">
+                            <div class="hiwcircle">2</div>
+                        </div>
+                        <div class="hiwstep-body">
+                            <h4>Zaměříme u vás</h4>
+                            <p>Přijedeme, zaměříme prostory a ukážeme vzorníky materiálů přímo na místě. Zdarma.</p>
+                            <span class="hiw-dur">Zdarma</span>
+                        </div>
+                    </div>
+                    <div class="hiwstep">
+                        <div class="hiwtop">
+                            <div class="hiwcircle">3</div>
+                        </div>
+                        <div class="hiwstep-body">
+                            <h4>Dostanete nabídku</h4>
+                            <p>Konkrétní cena a termín — jasná čísla, žádné odhady ani skrytá překvapení na faktuře.</p>
+                            <span class="hiw-dur">Do 2 dnů</span>
+                        </div>
+                    </div>
+                    <div class="hiwstep">
+                        <div class="hiwtop">
+                            <div class="hiwcircle">4</div>
+                        </div>
+                        <div class="hiwstep-body">
+                            <h4>Hotovo a předáno</h4>
+                            <p>Přijdeme, odvedeme práci a předáme hotovou podlahu přesně jak bylo domluveno.</p>
+                            <span class="hiw-dur">Termín splněn</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="hiwbar rv">
+                <div class="hiwbar-item">
+                    <div class="hiwbar-ico"><svg viewBox="0 0 24 24">
+                            <path
+                                d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
+                        </svg></div>
+                    <div class="hiwbar-t"><strong>Odpovídáme do 24 hod.</strong><span>Žádné čekání na zprávu</span>
+                    </div>
+                </div>
+                <div class="hiwbar-item">
+                    <div class="hiwbar-ico"><svg viewBox="0 0 24 24">
+                            <path
+                                d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6-3V7m6 16l4.553-2.276A1 1 0 0021 19.382V8.618a1 1 0 00-.553-.894L15 5m0 15V5m0 0L9 7" />
+                        </svg></div>
+                    <div class="hiwbar-t"><strong>Zaměření zdarma</strong><span>Přijedeme kamkoliv v Praze</span></div>
+                </div>
+                <div class="hiwbar-item">
+                    <div class="hiwbar-ico"><svg viewBox="0 0 24 24">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                        </svg></div>
+                    <div class="hiwbar-t"><strong>Záruka na práci i materiál</strong><span>Stojíme za každou
+                            podlahou</span></div>
+                </div>
+                <div class="hiwbar-item">
+                    <div class="hiwbar-ico"><svg viewBox="0 0 24 24">
+                            <polygon
+                                points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                        </svg></div>
+                    <div class="hiwbar-t"><strong>5★ hodnocení</strong><span>Stovky spokojených zákazníků</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PHONE BAND -->
+    <div class="phband rv">
+        <div class="phl">
+            <p>Zavolejte nám přímo</p><a href="tel:+420776830821"><svg viewBox="0 0 24 24">
+                    <path
+                        d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
+                </svg>+420 776 830 821</a>
+        </div>
+        <div class="phr">
+            <p>Nebo napište a <strong>ozveme se do 24 hodin</strong></p><button class="btnr"
+                onclick="sc('kontakt')">Napsat zprávu →</button>
+        </div>
+    </div>
+
+    <!-- KONTAKT -->
+    <section id="kontakt">
+        <div class="clayout">
+            <div class="rv">
+                <div class="sl">Kontakt</div>
+                <h2 class="sh">Pojďme to <em>probrat</em></h2>
+                <p class="sp">Přijedeme zaměřit, poradíme s materiálem a připravíme nabídku. Vše zdarma.</p>
+                <div class="cphone"><svg viewBox="0 0 24 24">
+                        <path
+                            d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
+                    </svg><a href="tel:+420776830821">+420 776 830 821</a></div>
+                <div class="ccards">
+                    <div class="cc">
+                        <div class="cci"><svg viewBox="0 0 24 24">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                                <polyline points="22,6 12,13 2,6" />
+                            </svg></div>
+                        <div class="ccb"><span>E-mail</span><a href="mailto:info@ruzafloors.cz">info@ruzafloors.cz</a>
+                        </div>
+                    </div>
+                    <div class="cc">
+                        <div class="cci"><svg viewBox="0 0 24 24">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+                                <circle cx="12" cy="10" r="3" />
+                            </svg></div>
+                        <div class="ccb"><span>Oblast</span>
+                            <p>Praha a celé okolí</p>
+                        </div>
+                    </div>
+                    <div class="cc">
+                        <div class="cci"><svg viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10" />
+                                <polyline points="12 6 12 12 16 14" />
+                            </svg></div>
+                        <div class="ccb"><span>Dostupnost</span>
+                            <p>Po–Pá 8:00–18:00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="csoc">
+                    <a href="https://instagram.com/ruzafloors" target="_blank" class="csbtn" title="Instagram"><svg
+                            viewBox="0 0 24 24">
+                            <rect x="2" y="2" width="20" height="20" rx="5" />
+                            <circle cx="12" cy="12" r="4" />
+                            <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+                        </svg><span>Instagram</span></a>
+                    <a href="tel:+420776830821" class="csbtn" title="Zavolat"><svg viewBox="0 0 24 24">
+                            <path
+                                d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" />
+                        </svg><span>Zavolat</span></a>
+                    <a href="mailto:info@ruzafloors.cz" class="csbtn" title="Email"><svg viewBox="0 0 24 24">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                            <polyline points="22,6 12,13 2,6" />
+                        </svg><span>E-mail</span></a>
+                </div>
+            </div>
+            <div class="cright rv d1">
+                <div class="cfbox">
+                    <h3>Napište nám</h3>
+                    <p>Odpovídáme do 24 hodin od podání poptávky.</p>
+                    <div class="fgr">
+                        <div class="fgi"><label>Jméno</label><input type="text" placeholder="Vaše jméno"></div>
+                        <div class="fgi"><label>Telefon</label><input type="tel" placeholder="+420 ..."></div>
+                    </div>
+                    <div class="fgi"><label>E-mail</label><input type="email" placeholder="vas@email.cz"></div>
+                    <div class="fgi"><label>Typ projektu</label><select>
+                            <option>Vinylová podlaha</option>
+                            <option>Dřevěná podlaha</option>
+                            <option>Vinylové schody</option>
+                            <option>Garážové stání (epoxid)</option>
+                            <option>Nevím, potřebuji poradit</option>
+                        </select></div>
+                    <div class="fgi"><label>Popis projektu</label><textarea
+                            placeholder="Plocha v m², lokalita v Praze, termín..."></textarea></div>
+                    <button class="fsub" onclick="subF(this)">Odeslat poptávku →</button>
+                </div>
+                <div class="cmapwrap">
+                    <div class="mapframe">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d20963.87!2d14.4212!3d50.0755!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x470b939c0970798b%3A0x400af0f6614b1b0!2zUHJhaGEsIMSMZXNrbw!5e0!3m2!1scs!2scz!4v1710000000000!5m2!1scs!2scz"
+                            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                            title="RuzaFloors Praha"></iframe>
+                    </div>
+                    <div class="mappills">
+                        <div class="mpill"><svg viewBox="0 0 24 24">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z" />
+                                <circle cx="12" cy="10" r="3" />
+                            </svg><span>Sídlo:</span><strong>Praha</strong></div>
+                        <div class="mpill"><svg viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10" />
+                                <polyline points="12 6 12 12 16 14" />
+                            </svg><span>Dostupní:</span><strong>Po–Pá 8–18</strong></div>
+                        <div class="mpill"><svg viewBox="0 0 24 24">
+                                <path
+                                    d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6-3V7m6 16l4.553-2.276A1 1 0 0021 19.382V8.618a1 1 0 00-.553-.894L15 5m0 15V5m0 0L9 7" />
+                            </svg><span>Oblast:</span><strong>Praha &amp; okolí</strong></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="ft">
+            <div><img src="https://www.ruzafloors.cz/wp-content/uploads/2023/12/logo_white_outline200xx60.png"
+                    alt="RuzaFloors" style="height:34px;width:auto;display:block;margin-bottom:10px;opacity:.85"><span
+                    class="fsubt">Podlahy · Schody · Garážová stání</span>
+                <p class="fbp">Pražská podlahářská firma s 10+ lety praxe. Zaměření zdarma.</p>
+                <div class="frl"></div>
+            </div>
+            <div class="fc">
+                <h5>Služby</h5>
+                <ul>
+                    <li><a onclick="sc('podlahy')">Podlahy</a></li>
+                    <li><a onclick="sc('schody')">Schody</a></li>
+                    <li><a onclick="sc('garage')">Garáže</a></li>
+                </ul>
+            </div>
+            <div class="fc">
+                <h5>Web</h5>
+                <ul>
+                    <li><a href="podlahy.html">Detail podlahy</a></li>
+                    <li><a href="schody.html">Detail schodů</a></li>
+                    <li><a onclick="sc('galerie')">Galerie</a></li>
+                    <li><a onclick="sc('tym')">Tým</a></li>
+                </ul>
+            </div>
+            <div class="fc">
+                <h5>Kontakt</h5>
+                <ul>
+                    <li><a href="tel:+420776830821">+420 776 830 821</a></li>
+                    <li><a href="mailto:info@ruzafloors.cz">info@ruzafloors.cz</a></li>
+                    <li><a href="https://instagram.com/ruzafloors" target="_blank">@ruzafloors</a></li>
+                    <li><a onclick="openM()">Zaměření zdarma</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="fbot">
+            <p>© 2024 RuzaFloors · Praha</p><a href="https://instagram.com/ruzafloors" target="_blank" class="fig"><svg
+                    viewBox="0 0 24 24">
+                    <rect x="2" y="2" width="20" height="20" rx="5" />
+                    <circle cx="12" cy="12" r="4" />
+                    <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+                </svg>Instagram</a>
+        </div>
+    </footer>
+
+    <script>
+        /* NAV */
+        function sc(id) { const el = document.getElementById(id); if (!el) return; const y = el.getBoundingClientRect().top + window.pageYOffset - document.getElementById('nav').offsetHeight; window.scrollTo({ top: y, behavior: 'smooth' }) }
+        function toggleNav() { document.getElementById('hbg').classList.toggle('open'); document.getElementById('npanel').classList.toggle('open') }
+        function closeNav() { document.getElementById('hbg').classList.remove('open'); document.getElementById('npanel').classList.remove('open') }
+        const SECS = ['podlahy', 'schody', 'garage', 'galerie', 'tym', 'proc-my', 'kontakt'];
+        window.addEventListener('scroll', () => { const h = document.getElementById('nav').offsetHeight + 10; let cur = ''; SECS.forEach(id => { const el = document.getElementById(id); if (el && el.getBoundingClientRect().top <= h) cur = id }); document.querySelectorAll('.nl a').forEach(a => { a.classList.remove('active'); if (a.getAttribute('onclick') && a.getAttribute('onclick').includes(cur)) a.classList.add('active') }) }, { passive: true });
+
+        /* REVEAL */
+        const ro = new IntersectionObserver(e => e.forEach(x => { if (x.isIntersecting) { x.target.classList.add('vis'); ro.unobserve(x.target) } }), { threshold: .08 });
+        document.querySelectorAll('.rv').forEach(el => ro.observe(el));
+
+        /* MODAL */
+        function openM() { document.getElementById('mo').classList.add('open'); document.body.style.overflow = 'hidden'; closeNav() }
+        function closeM() { document.getElementById('mo').classList.remove('open'); document.body.style.overflow = '' }
+        function closeOut(e) { if (e.target === document.getElementById('mo')) closeM() }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeM() });
+
+        /* CALCULATOR */
+        function addRow() { const t = document.getElementById('rb'); const tr = document.createElement('tr'); tr.innerHTML = `<td><input type="text" placeholder="Místnost" oninput="rcalc()"></td><td><input type="number" placeholder="0.0" min="0" step="0.1" oninput="rcalc()"></td><td><input type="number" placeholder="0.0" min="0" step="0.1" oninput="rcalc()"></td><td class="rac">—</td><td><select oninput="rcalc()"><option>Vinyl</option><option>Dřevo</option><option>Laminát</option><option>Epoxid</option></select></td><td><button class="dr" onclick="delRow(this)"><svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg></button></td>`; t.appendChild(tr); rcalc() }
+        function delRow(b) { if (document.querySelectorAll('#rb tr').length > 1) { b.closest('tr').remove(); rcalc() } }
+        function rcalc() { let tot = 0; document.querySelectorAll('#rb tr').forEach(r => { const n = r.querySelectorAll('input[type=number]'); const a = (parseFloat(n[0]?.value) || 0) * (parseFloat(n[1]?.value) || 0); const c = r.querySelector('.rac'); if (c) c.textContent = a > 0 ? a.toFixed(2) + ' m²' : '—'; tot += a }); document.getElementById('ca').textContent = tot.toFixed(2) + ' m²'; document.getElementById('ra').textContent = (tot * 1.1).toFixed(2) + ' m²'; document.getElementById('rc').textContent = document.querySelectorAll('#rb tr').length }
+
+        /* FORMS */
+        function subM(b) { b.textContent = '✓ Odesláno! Brzy se ozveme.'; b.style.background = '#2a7a4f'; setTimeout(() => { b.textContent = 'Odeslat poptávku & zamluvit zaměření →'; b.style.background = '' }, 5000) }
+        function subF(b) { b.textContent = '✓ Odesláno!'; b.style.background = '#2a7a4f'; setTimeout(() => { b.textContent = 'Odeslat poptávku →'; b.style.background = '' }, 5000) }
+
+        /* GALLERY TABS */
+        function gTab(name, btn) {
+            document.querySelectorAll('.gsec').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.gtab').forEach(b => b.classList.remove('active'));
+            document.getElementById('g-' + name)?.classList.add('active');
+            btn.classList.add('active');
+        }
+
+        /* STYLE QUIZ */
+        const QD = {
+            moderni: { tag: 'Doporučujeme: Vinyl Click', title: 'Moderní vinyl je váš styl', desc: 'Světlé plovoucí vinyl podlahy click systémem — rychlá montáž, nízká údržba, přesná imitace přírodních materiálů. Dub arktický nebo Jasan světlý.' },
+            rustikal: { tag: 'Doporučujeme: Dřevo olejované', title: 'Rustikální dřevo — váš domov bude hřejivý', desc: 'Třívrstvá dřevěná prkna s olejovaným povrchem a přiznanou kresbou. Masivní výraz, pocit přírody v bytě. Dub rustik nebo Americký ořech.' },
+            minimalista: { tag: 'Doporučujeme: Lepený vinyl', title: 'Minimalistický lepený vinyl — čistota interiéru', desc: 'Lepený vinyl bez výrazné kresby. Homogenní povrch, béžové nebo šedé tóny. Ideální pro čisté interiéry s podlahovým topením.' }
+        };
+        function selectStyle(card) {
+            document.querySelectorAll('.qcard').forEach(c => c.classList.remove('sel'));
+            card.classList.add('sel');
+            const d = QD[card.dataset.style];
+            document.getElementById('qtag').textContent = d.tag;
+            document.getElementById('qtitle').textContent = d.title;
+            document.getElementById('qdesc').textContent = d.desc;
+            const r = document.getElementById('qresult');
+            r.classList.add('show');
+            setTimeout(() => r.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+        }
+
+        /* AR FLOOR */
+        function setFloor(el) {
+            document.querySelectorAll('.arsw').forEach(s => s.classList.remove('active'));
+            el.classList.add('active');
+            document.getElementById('arovl').style.background = el.dataset.color;
+            document.getElementById('arlbl').textContent = el.dataset.name;
+            document.getElementById('arname').textContent = el.dataset.name + ' — klikni na vzorek pro změnu';
+        }
+
+        /* BEFORE/AFTER SLIDERS */
+        function initBA(id) {
+            const c = document.getElementById(id);
+            if (!c) return;
+            const after = document.getElementById(id + 'a');
+            const handle = document.getElementById(id + 'h');
+            let drag = false;
+            function setPos(pct) { const p = Math.max(5, Math.min(95, pct)); after.style.clipPath = `inset(0 ${100 - p}% 0 0)`; handle.style.left = p + '%' }
+            setPos(50);
+            const getX = e => e.touches ? e.touches[0].clientX : e.clientX;
+            handle.addEventListener('mousedown', e => { drag = true; e.preventDefault() });
+            handle.addEventListener('touchstart', () => drag = true, { passive: true });
+            document.addEventListener('mousemove', e => { if (!drag) return; const r = c.getBoundingClientRect(); setPos(((getX(e) - r.left) / r.width) * 100) });
+            document.addEventListener('touchmove', e => { if (!drag) return; const r = c.getBoundingClientRect(); setPos(((getX(e) - r.left) / r.width) * 100) }, { passive: true });
+            document.addEventListener('mouseup', () => drag = false);
+            document.addEventListener('touchend', () => drag = false);
+        }
+        ['ba1', 'ba2', 'ba3'].forEach(initBA);
+    </script>
+</body>
+
+</html>
