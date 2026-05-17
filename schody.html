@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="cs">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vinylové schody Praha – Výroba a montáž na míru | RuzaFloors</title>
+    <meta name="description"
+        content="Výroba a montáž vinylových schodů na míru v Praze. Stejný dekor jako podlaha, bez lišt, čistý výsledek. Zaměření zdarma. +420 776 830 821">
+    <meta name="keywords" content="vinylové schody, schody z vinylu, obklad schodů vinyl, schody praha, montáž schodů">
+    <meta name="author" content="RuzaFloors">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.ruzafloors.cz/schody">
+
+    <!-- OpenGraph -->
+    <meta property="og:title" content="Vinylové schody Praha – Výroba a montáž na míru | RuzaFloors">
+    <meta property="og:description" content="Výroba a montáž vinylových schodů na míru v Praze. Zaměření zdarma.">
+    <meta property="og:image" content="https://www.ruzafloors.cz/wp-content/uploads/2023/12/logo_white_outline200xx60.png">
+    <meta property="og:url" content="https://www.ruzafloors.cz/schody">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="RuzaFloors">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Vinylové schody Praha – Výroba a montáž na míru | RuzaFloors">
+    <meta name="twitter:description" content="Výroba a montáž vinylových schodů na míru v Praze. Zaměření zdarma.">
+    <meta name="twitter:image" content="https://www.ruzafloors.cz/wp-content/uploads/2023/12/logo_white_outline200xx60.png">
+
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "provider": {
+                "@type": "LocalBusiness",
+                "name": "RuzaFloors"
+            },
+            "name": "Výroba a montáž vinylových schodů Praha",
+            "description": "Profesionální výroba a montáž vinylových schodů na míru bez přechodových lišt v Praze a okolí."
+        }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="schody.css">
+    <style>
+        /* ========== ANIMACE SCHODŮ ========== */
+        .stairs-animation-section {
+            background: linear-gradient(135deg, var(--warm) 0%, var(--sand2) 100%);
+            padding: 60px 20px;
+            margin: 40px 0;
+        }
+
+        .stairs-animation-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .stairs-canvas-wrapper {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            background: white;
+            border: 2px solid var(--sand3);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .stairs-canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .stairs-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .stairs-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--ink);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .stairs-info p {
+            color: var(--stone);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 24px;
+        }
+
+        .stairs-steps-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .stairs-step-item {
+            display: flex;
+            gap: 16px;
+            padding: 16px;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid var(--red);
+            transition: all 0.3s ease;
+        }
+
+        .stairs-step-item:hover {
+            box-shadow: 0 6px 16px rgba(184, 64, 64, 0.1);
+            transform: translateX(4px);
+        }
+
+        .stairs-step-num {
+            min-width: 40px;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--red), var(--red-f));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .stairs-step-content h5 {
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 4px;
+        }
+
+        .stairs-step-content p {
+            font-size: 0.9rem;
+            color: var(--stone);
+            margin: 0;
+        }
+
+        .stairs-animation-controls {
+            display: flex;
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .stairs-btn {
+            padding: 12px 24px;
+            border: 1px solid var(--sand3);
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--ink);
+            transition: all 0.3s ease;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+        }
+
+        .stairs-btn:hover {
+            background: var(--sand2);
+            border-color: var(--red);
+        }
+
+        .stairs-btn.primary {
+            background: linear-gradient(135deg, var(--red), var(--red-f));
+            color: white;
+            border-color: var(--red);
+        }
+
+        .stairs-btn.primary:hover {
+            box-shadow: 0 6px 20px rgba(184, 64, 64, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .stairs-animation-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .stairs-canvas-wrapper {
+                height: 300px;
+            }
+
+            .stairs-info h3 {
+                font-size: 1.6rem;
+            }
+        }
+
+        /* Reveal animation */
+        .rv {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .rv.vis {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="fab-container">
+        <a href="tel:+420776830821" class="fab call-fab">
+            <svg viewBox="0 0 24 24" width="15" height="15" stroke="currentColor" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+            </svg>
+            Zavolat
+        </a>
+        <button class="fab" onclick="openM()">
+            <svg viewBox="0 0 24 24">
+                <path
+                    d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6-3V7m6 16l4.553-2.276A1 1 0 0021 19.382V8.618a1 1 0 00-.553-.894L15 5m0 15V5m0 0L9 7" />
+            </svg>
+            Zaměření zdarma
+        </button>
+    </div>
+
+    <div class="mo" id="mo" onclick="closeOut(event)">
+        <div class="mbox">
+            <div class="mh">
+                <div>
+                    <h2>Zaměření schodů <span>zdarma</span></h2>
+                    <p>Pošlete poptávku — zavoláme Vám do druhého dne.</p>
+                </div><button class="mcl" onclick="closeM()"><svg viewBox="0 0 24 24">
+                        <path d="M18 6L6 18M6 6l12 12" />
+                    </svg></button>
+            </div>
+            <div class="mb">
+                <p
+                    style="font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.13em;color:var(--stone);margin-bottom:14px">
+                    Kontaktní údaje</p>
+                <div class="mfg">
+                    <div class="fg"><label>Jméno</label><input type="text" placeholder="Vaše jméno"></div>
+                    <div class="fg"><label>Telefon</label><input type="tel" placeholder="+420 ..."></div>
+                    <div class="fg"><label>E-mail</label><input type="email" placeholder="vas@email.cz"></div>
+                    <div class="fg"><label>Počet schodů (přibližně)</label><input type="text" placeholder="např. 14">
+                    </div>
+                    <div class="fg"><label>Typ schodů</label><select>
+                            <option>Schody s nosem</option>
+                            <option>Schody bez nosu</option>
+                            <option>Nevím, potřebuji poradit</option>
+                        </select></div>
+                    <div class="fg"><label>Termín</label><input type="text" placeholder="říjen 2024"></div>
+                    <div class="fg full"><label>Poznámka</label><textarea
+                            placeholder="Lokalita v Praze, popis projektu, máte již podlahu?..."></textarea></div>
+                </div>
+                <button class="msub" onclick="subM(this)">Odeslat poptávku &amp; zamluvit zaměření →</button>
+                <p class="mnote">Nezávazné · Zdarma · Do 24 hodin</p>
+            </div>
+        </div>
+    </div>
+
+    <nav id="nav">
+        <a href="index.html" class="logo"><img src="https://www.ruzafloors.cz/wp-content/uploads/2023/12/logo_white_outline200xx60.png" alt="RuzaFloors" height="48"></a>
+        <ul class="nl" id="nl">
+            <li><a href="podlahy.html">Podlahy</a></li>
+            <li><a href="schody.html" class="active">Schody</a></li>
+            <li><a href="index.html#garage">Garáže</a></li>
+            <li><a href="index.html#proc-my">Proč my</a></li>
+            <li><a href="index.html#kontakt">Kontakt</a></li>
+            <li><a href="#" onclick="openM();return false" class="ncta">Zaměření zdarma</a></li>
+        </ul>
+        <button class="hbg" id="hbg" onclick="toggleNav()"><span></span><span></span><span></span></button>
+    </nav>
+
+    <div class="ph">
+        <div class="ph-bg" style="background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=85');"></div>
+        <div class="ph-ov"></div>
+        <div class="ph-content">
+            <div class="breadcrumb"><a href="index.html">Domů</a><svg viewBox="0 0 24 24">
+                    <path d="M9 18l6-6-6-6" />
+                </svg><span>Schody</span></div>
+            <h1>Vinylové schody<br><em>na míru</em></h1>
+        </div>
+    </div>
+
+    <!-- INTRO -->
+    <section class="sw">
+        <div class="intro-grid">
+            <div class="ig-text rv">
+                <div class="sl">O schodech</div>
+                <h2 class="sh">Schody jako součást<br><em>celku</em></h2>
+                <p class="sp">Vinylové schody vyrábíme a montujeme přesně ve stejném dekoru jako vaši podlahu. Bez
+                    přechodových lišt, bez kovových hran v ohybu nášlapu — výsledek je čistý, elegantní a bezpečný.</p>
+                <br>
+                <p class="sp" style="margin-bottom:28px">Přijdeme zaměřit, navrhneme optimální řešení pro váš typ
+                    schodiště a připravíme konkrétní nabídku. Zdarma, bez závazku.</p>
+                <button class="btn-r" onclick="openM()">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6-3V7m6 16l4.553-2.276A1 1 0 0021 19.382V8.618a1 1 0 00-.553-.894L15 5m0 15V5m0 0L9 7" />
+                    </svg>
+                    Zaměření zdarma
+                </button>
+            </div>
+            <div class="ig-img rv d1">
+                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1200&q=85"
+                    alt="Vinylové schody na míru Praha – RuzaFloors">
+            </div>
+        </div>
+    </section>
+
+    <!-- ANIMACE STAVBY SCHODŮ -->
+    <section class="stairs-animation-section">
+        <div class="stairs-animation-container rv">
+            <div class="stairs-canvas-wrapper">
+                <canvas id="stairsCanvas" class="stairs-canvas"></canvas>
+            </div>
+            <div class="stairs-info">
+                <h3>Stavba schodů krok za krokem</h3>
+                <p>Podívejte se, jak postupně entstávají vaše schody — od přípravy až po finální výsledek. Každý krok je důležitý.</p>
+                
+                <div class="stairs-steps-list">
+                    <div class="stairs-step-item" data-step="0">
+                        <div class="stairs-step-num">1</div>
+                        <div class="stairs-step-content">
+                            <h5>Příprava podkladu</h5>
+                            <p>Pečlivá příprava a vyrovnání povrchu</p>
+                        </div>
+                    </div>
+                    <div class="stairs-step-item" data-step="1">
+                        <div class="stairs-step-num">2</div>
+                        <div class="stairs-step-content">
+                            <h5>Montáž schodnicí</h5>
+                            <p>Instalace nosné konstrukce</p>
+                        </div>
+                    </div>
+                    <div class="stairs-step-item" data-step="2">
+                        <div class="stairs-step-num">3</div>
+                        <div class="stairs-step-content">
+                            <h5>Lepení vinylu</h5>
+                            <p>Nanášení kvalitního lepidla</p>
+                        </div>
+                    </div>
+                    <div class="stairs-step-item" data-step="3">
+                        <div class="stairs-step-num">4</div>
+                        <div class="stairs-step-content">
+                            <h5>Pokládka nášlapů</h5>
+                            <p>Přesná instalace vinylových nášlapů</p>
+                        </div>
+                    </div>
+                    <div class="stairs-step-item" data-step="4">
+                        <div class="stairs-step-num">5</div>
+                        <div class="stairs-step-content">
+                            <h5>Dokončení a lešť</h5>
+                            <p>Čistící lešť a finální úpravy</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stairs-animation-controls">
+                    <button class="stairs-btn primary" id="playBtn" onclick="playAnimation()">▶ Spustit animaci</button>
+                    <button class="stairs-btn" id="resetBtn" onclick="resetAnimation()">⟲ Resetovat</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="process-section sw">
+        <div class="ps-inner">
+            <div class="ps-header rv">
+                <div class="sl">Jak to funguje</div>
+                <h2 class="sh">Postup od A do Z</h2>
+                <p class="sp">Celý proces od prvního kontaktu po předání hotového schodiště.</p>
+            </div>
+            <div class="steps rv">
+                <div class="step">
+                    <div class="step-num">01</div>
+                    <h4>Zaměření zdarma</h4>
+                    <p>Přijedeme k vám, zaměříme schody, ukážeme vzorníky a doporučíme vhodné řešení.</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">02</div>
+                    <h4>Návrh &amp; nabídka</h4>
+                    <p>Připravíme konkrétní nabídku s cenou, termínem a výběrem dekorů shodných s podlahou.</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">03</div>
+                    <h4>Výroba na míru</h4>
+                    <p>Schodnice vyrábíme přesně dle vašich rozměrů — s nosem, bez nosu nebo s bočním krytím.</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">04</div>
+                    <h4>Montáž &amp; předání</h4>
+                    <p>Profesionální montáž, čisté dokončení. Předáme hotové schodiště přesně jak bylo domluveno.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TYPES -->
+    <section class="types-section sw">
+        <div class="types-header rv">
+            <div class="sl" style="justify-content:center">Typy schodů</div>
+            <h2 class="sh">Co nabízíme</h2>
+        </div>
+        <div class="stypes-grid">
+            <div class="stype-tile rv">
+                <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=85"
+                    alt="Schody s nosem Praha">
+                <div class="stype-content">
+                    <span class="st-badge">Klasický styl</span>
+                    <h3>Schody s nosem</h3>
+                    <p>Tradiční design s vyčnívajícím nosem — klasický vzhled a zvýšená bezpečnost. Možnost v dekoru
+                        podlahy.</p>
+                </div>
+            </div>
+            <div class="stype-tile rv d1">
+                <img src="https://images.unsplash.com/photo-1565538810643-b5bdb714032a?w=900&q=85"
+                    alt="Schody bez nosu Praha">
+                <div class="stype-content">
+                    <span class="st-badge">Moderní design</span>
+                    <h3>Schody bez nosu</h3>
+                    <p>Čistý, minimalistický vzhled. Nášlapy jsou přepravdě bez přesahu — moderní a elegantní řešení.</p>
+                </div>
+            </div>
+            <div class="stype-tile rv d2">
+                <img src="https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=900&q=85"
+                    alt="Schody s bočním krytím Praha">
+                <div class="stype-content">
+                    <span class="st-badge">Prémium řešení</span>
+                    <h3>S bočním krytím</h3>
+                    <p>Kompletní obklad včetně bočních stěn — maximální elegance a ochrana. Stejný dekor všude.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section sw">
+        <div class="cta-inner rv">
+            <h2>Připraveni na nové schody?</h2>
+            <p>Máme volné kapacity — zarezervujte si termín ještě letos!</p>
+            <button class="btn-r" onclick="openM()">Požádat o zaměření →</button>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="ft">
+            <div><img src="https://www.ruzafloors.cz/wp-content/uploads/2023/12/logo_white_outline200xx60.png"
+                    alt="RuzaFloors" style="height:34px;width:auto;display:block;margin-bottom:10px;opacity:.85"><span
+                    class="fsubt">Podlahy · Schody · Garážová stání</span>
+                <p class="fbp">Pražská podlahářská firma s 10+ lety praxe. Zaměření zdarma.</p>
+                <div class="frl"></div>
+            </div>
+            <div class="fc">
+                <h5>Web</h5>
+                <ul>
+                    <li><a href="podlahy.html">Podlahy</a></li>
+                    <li><a href="schody.html">Schody</a></li>
+                    <li><a href="index.html#garage">Garáže</a></li>
+                    <li><a href="index.html#galerie">Galerie</a></li>
+                </ul>
+            </div>
+            <div class="fc">
+                <h5>Právní informace</h5>
+                <ul>
+                    <li><a href="obchodni-podminky.html">Obchodní podmínky</a></li>
+                    <li><a href="gdpr.html">Zpracování osobních údajů (GDPR)</a></li>
+                    <li><a href="cookies.html">Informace o Cookies</a></li>
+                </ul>
+            </div>
+            <div class="fc">
+                <h5>Kontakt</h5>
+                <ul>
+                    <li><a href="tel:+420776830821">+420 776 830 821</a></li>
+                    <li><a href="mailto:info@ruzafloors.cz">info@ruzafloors.cz</a></li>
+                    <li><a href="https://instagram.com/ruzafloors" target="_blank">@ruzafloors</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="fbot">
+            <p>© 2024 RuzaFloors · Praha</p>
+        </div>
+    </footer>
+
+    <script>
+        /* NAV */
+        function toggleNav() { document.getElementById('hbg').classList.toggle('open'); document.getElementById('nl').classList.toggle('open') }
+        document.querySelectorAll('.nl a').forEach(a => a.addEventListener('click', () => { document.getElementById('hbg').classList.remove('open'); document.getElementById('nl').classList.remove('open') }));
+
+        /* MODAL */
+        function openM() { document.getElementById('mo').classList.add('open'); document.body.style.overflow = 'hidden' }
+        function closeM() { document.getElementById('mo').classList.remove('open'); document.body.style.overflow = '' }
+        function closeOut(e) { if (e.target === document.getElementById('mo')) closeM() }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeM() });
+        function subM(b) { b.textContent = '✓ Odesláno! Brzy se ozveme.'; b.style.background = '#2a7a4f'; setTimeout(() => { b.textContent = 'Odeslat poptávku & zamluvit zaměření →'; b.style.background = '' }, 5000) }
+
+        /* REVEAL */
+        const ro = new IntersectionObserver(e => e.forEach(x => { if (x.isIntersecting) { x.target.classList.add('vis'); ro.unobserve(x.target) } }), { threshold: .08 });
+        document.querySelectorAll('.rv').forEach(el => ro.observe(el));
+
+        /* ========== REÁLNÁ ANIMACE SCHODŮ ========== */
+        const canvas = document.getElementById('stairsCanvas');
+        const ctx = canvas.getContext('2d');
+        let animationProgress = 0;
+        let animationRunning = false;
+
+        function resizeCanvas() {
+            const parent = canvas.parentElement;
+            canvas.width = parent.offsetWidth;
+            canvas.height = parent.offsetHeight;
+            drawStairs(animationProgress);
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        const colors = {
+            concrete: '#D3D3D3',
+            wood: '#8B7355',
+            vinyl: '#D4AF37',
+            rail: '#333333',
+            shadow: 'rgba(0, 0, 0, 0.15)'
+        };
+
+        function drawStairs(progress) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            const startX = canvas.width * 0.1;
+            const startY = canvas.height * 0.75;
+            const stairWidth = 40;
+            const stairHeight = 35;
+            const numStairs = 10;
+
+            // Pozadí
+            ctx.fillStyle = '#F5F5F5';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Kreslení jednotlivých stupňů
+            for (let i = 0; i < numStairs; i++) {
+                const stairProgress = Math.max(0, progress - i * 0.1);
+                if (stairProgress <= 0) continue;
+
+                const x = startX + i * stairWidth;
+                const y = startY - i * stairHeight;
+
+                // Efekt stavby - schody se objevují zleva doprava s animací
+                const drawProgress = Math.min(stairProgress, 1);
+
+                // Podkladový beton
+                ctx.fillStyle = colors.concrete;
+                ctx.fillRect(x, y, stairWidth * drawProgress, stairHeight);
+                
+                // Stín pod stupněm
+                ctx.fillStyle = colors.shadow;
+                ctx.fillRect(x, y + stairHeight, stairWidth * drawProgress, 2);
+
+                // Vinyl nášlap — rozsvícení efekt
+                if (drawProgress > 0.5) {
+                    const vinylProgress = (drawProgress - 0.5) / 0.5;
+                    
+                    // Gradient efekt pro vinyl
+                    const gradient = ctx.createLinearGradient(x, y, x + stairWidth, y);
+                    gradient.addColorStop(0, colors.vinyl);
+                    gradient.addColorStop(0.5, '#E4C24F');
+                    gradient.addColorStop(1, colors.vinyl);
+                    
+                    ctx.fillStyle = gradient;
+                    ctx.fillRect(x, y, stairWidth * drawProgress, stairHeight * 0.7);
+
+                    // Lesk na vinylu
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+                    ctx.fillRect(x, y, stairWidth * drawProgress * vinylProgress, stairHeight * 0.3);
+                }
+
+                // Hrana stupně
+                ctx.strokeStyle = '#999';
+                ctx.lineWidth = 1;
+                ctx.beginPath();
+                ctx.moveTo(x, y + stairHeight);
+                ctx.lineTo(x + stairWidth * drawProgress, y + stairHeight);
+                ctx.stroke();
+            }
+
+            // Zábradlí (pojí se později)
+            if (progress > 0.5) {
+                const railProgress = (progress - 0.5) / 0.5;
+                
+                // Svislé kolíky
+                for (let i = 0; i < numStairs && i < Math.floor(numStairs * railProgress); i++) {
+                    const x = startX + i * stairWidth + stairWidth / 2;
+                    const y = startY - i * stairHeight - 80;
+                    
+                    ctx.strokeStyle = colors.rail;
+                    ctx.lineWidth = 3;
+                    ctx.beginPath();
+                    ctx.moveTo(x, y);
+                    ctx.lineTo(x, y + 80);
+                    ctx.stroke();
+                }
+
+                // Horní lišta zábradlí
+                if (railProgress > 0.6) {
+                    const railTopProgress = (railProgress - 0.6) / 0.4;
+                    ctx.strokeStyle = colors.rail;
+                    ctx.lineWidth = 4;
+                    ctx.beginPath();
+                    ctx.moveTo(startX + (stairWidth * 0.5), startY - 80);
+                    ctx.lineTo(startX + numStairs * stairWidth * railTopProgress + (stairWidth * 0.5), startY - (numStairs - 1) * stairHeight - 80);
+                    ctx.stroke();
+                }
+            }
+
+            // Informativní text
+            ctx.fillStyle = '#333';
+            ctx.font = 'bold 14px Outfit';
+            ctx.textAlign = 'left';
+            ctx.fillText(`Postup stavby: ${Math.round(progress * 100)}%`, startX, canvas.height - 20);
+        }
+
+        function animateStairs() {
+            if (!animationRunning) return;
+
+            animationProgress += 0.02;
+            if (animationProgress > 1) {
+                animationProgress = 1;
+                animationRunning = false;
+                document.getElementById('playBtn').textContent = '▶ Znovu spustit';
+            }
+
+            drawStairs(animationProgress);
+
+            if (animationRunning) {
+                requestAnimationFrame(animateStairs);
+            }
+        }
+
+        function playAnimation() {
+            if (!animationRunning && animationProgress < 1) {
+                animationRunning = true;
+                document.getElementById('playBtn').textContent = '⏸ Pozastavit';
+                animateStairs();
+            } else if (animationRunning) {
+                animationRunning = false;
+                document.getElementById('playBtn').textContent = '▶ Pokračovat';
+            } else {
+                animationProgress = 0;
+                animationRunning = true;
+                document.getElementById('playBtn').textContent = '⏸ Pozastavit';
+                animateStairs();
+            }
+        }
+
+        function resetAnimation() {
+            animationProgress = 0;
+            animationRunning = false;
+            document.getElementById('playBtn').textContent = '▶ Spustit animaci';
+            drawStairs(0);
+        }
+
+        // Auto-play animation po načtení
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                playAnimation();
+            }, 800);
+        });
+    </script>
+</body>
+
+</html>
